@@ -53,7 +53,7 @@ const PhoneSignUp = () => {
             <div id="recaptcha-container"></div>
           </Form.Group>
           <div className="button-right">
-            <Link to="/">
+            <Link to="/login">
               <Button variant="secondary">Cancel</Button>
             </Link>
             &nbsp;
