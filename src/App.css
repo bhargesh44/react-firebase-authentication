@@ -94,6 +94,7 @@ table {
 }
 .search-icon {
   cursor: pointer;
+  color: darkgray;
   position: absolute;
   right: 11px;
   top: 7px;
