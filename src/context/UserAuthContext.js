@@ -10,11 +10,13 @@ import {
   RecaptchaVerifier,
   signInWithPhoneNumber,
 } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const userAuthContext = createContext();
 
 export function UserAuthContextProvider({ children }) {
   const [user, setUser] = useState({});
+  const navigate = useNavigate();
   function signUp(email, password) {
     return createUserWithEmailAndPassword(auth, email, password);
   }
@@ -44,6 +46,11 @@ export function UserAuthContextProvider({ children }) {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       console.log("Auth", currentUser);
       setUser(currentUser);
+      // if user is login so wqe c an not move to login page
+      if (currentUser !== null) {
+        navigate("/");
+      }
+      //......
     });
     return () => {
       unSubscribe();
@@ -51,7 +58,14 @@ export function UserAuthContextProvider({ children }) {
   }, []);
   return (
     <userAuthContext.Provider
-      value={{ user, signUp, logIn, logOut, googleSignIn, setUpRecaptcha }}
+      value={{
+        user,
+        signUp,
+        logIn,
+        logOut,
+        googleSignIn,
+        setUpRecaptcha,
+      }}
     >
       {children}
     </userAuthContext.Provider>
